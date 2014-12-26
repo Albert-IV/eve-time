@@ -2,17 +2,43 @@
 <html>
 <head>
   <title>Eve-Time, Fleet Times Made Easy!</title>
-  <style type="text/css" src="/css/index.css"></style>
+  <link rel="stylesheet" href="/css/normalize.css"></link>
+  <link rel="stylesheet" href="/css/skeleton.css"></link>
+  <link rel="stylesheet" href="/css/index.css"></link>
 </head>
 <body>
-  <h1>Eve Time</h1>
-  <h3 id="current-time"></h3>
-  <h1>Your Time</h1>
-  <h3 id="your-time"></h3>
+  <div class="container">
 
-  <script type="text/javascript" src="/js/moment.min.js"></script>
-  <script type="text/javascript" src="/js/moment-timezone.min.js"></script>
-  <script type="text/javascript" src="/js/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/index.js"></script>
+    <h1>Eve Time</h1>
+    <h3 id="current-time"></h3>
+    <h1>Your Time</h1>
+    <h3 id="your-time"></h3>
+
+    <div class="row">
+      <input type="text" id="from-time" class="columns eight">
+      <select id="timezone-select" class="columns four">
+        <option value="">Select One...</option>
+      </select>
+    </div>
+    <div class="row">
+      <input type="text" id="to-time" class="columns eight">
+      <button class="columns four button-primary" id="calculate-time">Get Eve Time</button>
+    </div>
+
+    <div id="share-block" class="hide">
+      <div class="row">
+        <div class="columns twelve gray">Share this time...</div>
+      </div>
+      <div class="row">
+        <input type="text" id="share-time" class="columns twelve">
+      </div>
+    </div>
+
+    <script type="text/javascript" src="/js/moment.min.js"></script>
+    <script type="text/javascript" src="/js/moment-timezone.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/timezones.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+  </div>
 </body>
 </html>
