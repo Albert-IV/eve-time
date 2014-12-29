@@ -7,22 +7,8 @@ $(function() {
   init();
 
   function init() {
-    populateTimezones();
     setTimeNow(true);
-
     setInterval(setTimeNow, 500);
-  }
-
-  function populateTimezones () {
-    window.timezones.forEach(function(tzGroup) {
-      var $group = $("<optgroup label='" + tzGroup.group + "'></optgroup>");
-
-      tzGroup.zones.forEach(function(tz) {
-        $group.append("<option>" + tz.value + "</option>");
-      });
-
-      $group.appendTo($('#timezone-select'));
-    });
   }
 
   function setTimeNow(init) {
@@ -38,21 +24,26 @@ $(function() {
   }
 
   function calcFleetTime(dateStr) {
-    var urlTime = getParameterByName('time') || dateStr;
+    var timeParam = getParameterByName('time') && parseInt(getParameterByName('time'), 10) || 0;
+    var urlTime = timeParam &&
+                  moment(timeParam).format(dateFormat) ||
+                  dateStr;
+
     $('#from-time').val(urlTime);
+    if( !!timeParam ) {
+      calculateLocalTime();
+    }
   }
 
-  function calculateLocalTime(e) {
-    var currentTz = $('#timezone-select').val();
-    if( !currentTz ) return false;
-
-    var fromDate = moment.tz($("#from-time").val(), 'GMT');
-    fromDate.tz(currentTz);
-    var dateText = fromDate.format(dateFormat);
+  function calculateLocalTime() {
+    var convertedDate = moment.tz($("#from-time").val(), 'GMT').local();
+    var dateText = convertedDate.format(dateFormat);
 
     $('#to-time').val(dateText);
-    $('#share-time').val("http://eve-time.com/?time=" + encodeURIComponent(dateText));
-    $('#share-block').fadeIn(1500);
+    if( dateText != "Invalid date" ) {
+      $('#share-time').val("http://eve-time.com/?time=" + encodeURIComponent(convertedDate.valueOf()));
+      $('#share-block').fadeIn(1500);
+    }
   }
 
   // Shamelessly stolen from here:
