@@ -1,6 +1,6 @@
 /* global moment */
 $(function() {
-  var dateFormat = "H:mm:ss MM-DD-YYYY";
+  var dateFormat = "H:mm:ss MM/DD/YYYY";
 
   $('#calculate-time').click(calculateLocalTime);
 
